@@ -27,7 +27,7 @@ colonies = [
 ]
 
 # Function to randomize map and colonies
-def randomize_setup(player_count):
+def randomize_setup(player_count, maps):
     num_colonies = max(5, player_count + 2)
     selected_colonies = random.sample(colonies, num_colonies)
     selected_map = random.choice(maps)
@@ -39,6 +39,13 @@ st.title("Terraforming Mars Randomizer")
 # Input player names
 players = st.text_area("Enter player names, one per line:")
 
+# Checkbox to include "Amazonis Planitia"
+include_amazonis = st.checkbox("Include Amazonis Planitia in the map pool")
+
+# If checkbox is checked, add "Amazonis Planitia" to the maps list
+if include_amazonis:
+    maps.append("Amazonis Planitia")
+
 # Split the player names into a list
 player_list = players.splitlines()
 
@@ -46,7 +53,7 @@ player_list = players.splitlines()
 if st.button("Submit"):
     if len(player_list) > 0:
         # Randomize map and colonies
-        selected_map, selected_colonies = randomize_setup(len(player_list))
+        selected_map, selected_colonies = randomize_setup(len(player_list), maps)
 
         # Select a first player
         first_player = random.choice(player_list)
