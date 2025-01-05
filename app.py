@@ -34,61 +34,53 @@ def randomize_setup(player_count, maps):
     selected_map = random.choice(maps)
     return selected_map, selected_colonies
 
-# Add the logo at the top with increased size (image located in the same directory)
-st.image("Terraforming-Mars-logo-with-shadow.png", width=500, use_container_width=True)
+# Initialize session state for page navigation
+if "page" not in st.session_state:
+    st.session_state.page = "main"  # Start on the main page
 
-# Add the words "Game Randomizer" below the logo
-st.markdown(
-    """
-    <div style="text-align: center;">
-        <h2 style="color: #FF6F20;">Game Randomizer</h2>
-    </div>
-    """, unsafe_allow_html=True
-)
+# Main Page (where players input their names)
+if st.session_state.page == "main":
+    st.image("Terraforming-Mars-logo-with-shadow.png", width=500, use_container_width=True)
+    st.markdown("<div style='text-align: center;'><h2 style='color: #FF6F20;'>Game Randomizer</h2></div>", unsafe_allow_html=True)
 
-# Change the background color to black
-st.markdown(
-    """
-    <style>
-    .reportview-container {
-        background-color: black;
-        color: white;
-    }
-    .sidebar .sidebar-content {
-        background-color: black;
-        color: white;
-    }
-    </style>
-    """, unsafe_allow_html=True
-)
+    # Input player names in 5 smaller text boxes
+    player1 = st.text_input("Player 1", "")
+    player2 = st.text_input("Player 2", "", placeholder="Leave blank if not used")
+    player3 = st.text_input("Player 3", "", placeholder="Leave blank if not used")
+    player4 = st.text_input("Player 4", "", placeholder="Leave blank if not used")
+    player5 = st.text_input("Player 5", "", placeholder="Leave blank if not used")
 
-# Input player names in 5 smaller text boxes
-player1 = st.text_input("Player 1", "")
-player2 = st.text_input("Player 2", "", placeholder="Leave blank if not used")
-player3 = st.text_input("Player 3", "", placeholder="Leave blank if not used")
-player4 = st.text_input("Player 4", "", placeholder="Leave blank if not used")
-player5 = st.text_input("Player 5", "", placeholder="Leave blank if not used")
+    # Collect non-empty player names into a list
+    player_list = [player for player in [player1, player2, player3, player4, player5] if player]
 
-# Collect non-empty player names into a list
-player_list = [player for player in [player1, player2, player3, player4, player5] if player]
+    # Checkbox to include "Amazonis Planitia"
+    include_amazonis = st.checkbox("Include Amazonis Planitia in the map pool")
+    if include_amazonis:
+        maps.append("Amazonis Planitia")
 
-# Checkbox to include "Amazonis Planitia"
-include_amazonis = st.checkbox("Include Amazonis Planitia in the map pool")
+    # Button to go to the options page
+    if st.button("Show Options"):
+        st.session_state.page = "options"
 
-# If checkbox is checked, add "Amazonis Planitia" to the maps list
-if include_amazonis:
-    maps.append("Amazonis Planitia")
+    # Submit button for game randomization
+    if st.button("Submit"):
+        if len(player_list) > 0:
+            selected_map, selected_colonies = randomize_setup(len(player_list), maps)
+            first_player = random.choice(player_list)
 
-# Initialize session state to control button label and visibility
-if "show_options" not in st.session_state:
-    st.session_state.show_options = False
+            # Show results
+            st.markdown(f"<div style='text-align: center;'><h3 style='color: #FF6F20;'>Game Setup for {', '.join(player_list)}</h3></div>", unsafe_allow_html=True)
+            st.write(f"**Selected Map**: {selected_map}")
+            st.write(f"**Selected Colonies ({len(selected_colonies)})**:")
+            for colony in selected_colonies:
+                st.write(f"- {colony}")
+            st.write(f"\n**First Player**: {first_player}")
+        else:
+            st.write("Please enter player names.")
 
-# Button to toggle between showing and hiding options
-if st.button("Show Options" if not st.session_state.show_options else "Hide Options"):
-    st.session_state.show_options = not st.session_state.show_options
-
-# Show maps and colonies if the options are toggled
-if st.session_state.show_options:
+# Options Page (where maps and colonies are listed)
+elif st.session_state.page == "options":
+    # Show available maps and colonies
     st.subheader("Available Maps:")
     for map in maps:
         st.write(f"- {map}")
@@ -97,67 +89,6 @@ if st.session_state.show_options:
     for colony in colonies:
         st.write(f"- {colony}")
 
-# Add a submit button
-if st.button("Submit"):
-    if len(player_list) > 0:
-        # Randomize map and colonies
-        selected_map, selected_colonies = randomize_setup(len(player_list), maps)
-
-        # Select a first player (we'll animate this)
-        first_player = random.choice(player_list)
-
-        # Slot machine animation effect for the map
-        map_placeholder = st.empty()
-        map_animation_duration = 0.5  # Reduced to make the spin faster
-        num_spins = 10  # Fewer spins for faster animation
-        for _ in range(num_spins):
-            random_map = random.choice(maps)
-            map_placeholder.text(f"Choosing map: {random_map}")
-            time.sleep(map_animation_duration / num_spins)
-        map_placeholder.empty()  # Clear the map animation once it finishes
-
-        # Slot machine animation effect for the colonies
-        colonies_placeholder = st.empty()
-        colonies_animation_duration = 0.5  # Reduced to make the spin faster
-        for _ in range(num_spins):
-            random_colony = random.choice(colonies)
-            colonies_placeholder.text(f"Choosing colonies: {random_colony}")
-            time.sleep(colonies_animation_duration / num_spins)
-        colonies_placeholder.empty()  # Clear the colonies animation once it finishes
-
-        # Slot machine animation effect for the first player
-        player_placeholder = st.empty()
-        player_animation_duration = 0.5  # Reduced to make the spin faster
-        for _ in range(num_spins):
-            random_player = random.choice(player_list)
-            player_placeholder.text(f"Choosing first player: {random_player}")
-            time.sleep(player_animation_duration / num_spins)
-        player_placeholder.empty()  # Clear the player animation once it finishes
-
-        # Format the player list with "and" before the last player
-        if len(player_list) > 1:
-            player_display = ", ".join(player_list[:-1]) + " and " + player_list[-1]
-        else:
-            player_display = player_list[0]
-
-        # Display the final results after all animations are complete
-        st.markdown(
-            f"""
-            <div style="text-align: center;">
-                <h3 style="color: #FF6F20;">Game Setup for {player_display}</h3>
-            </div>
-            """, unsafe_allow_html=True
-        )
-        st.write(f"**Selected Map**: {selected_map}")
-
-        # Display the number of selected colonies in the format "Selected Colonies(x)"
-        st.write(f"**Selected Colonies ({len(selected_colonies)})**:")
-
-        # Loop through and display each selected colony
-        for colony in selected_colonies:
-            st.write(f"- {colony}")
-
-        # Display the first player
-        st.write(f"\n**First Player**: {first_player}")
-    else:
-        st.write("Please enter player names.")
+    # Button to go back to the main page
+    if st.button("Back"):
+        st.session_state.page = "main"
