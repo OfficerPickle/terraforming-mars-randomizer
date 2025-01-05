@@ -84,7 +84,12 @@ if "show_options" not in st.session_state:
     st.session_state.show_options = False
 
 # Toggle button to show/hide available maps and colonies
-if st.button("Show Options" if not st.session_state.show_options else "Hide Options"):
+if st.session_state.show_options:
+    button_label = "Hide Options"
+else:
+    button_label = "Show Options"
+
+if st.button(button_label):
     st.session_state.show_options = not st.session_state.show_options
 
 # Show maps and colonies if the options are toggled
