@@ -42,19 +42,21 @@ players = st.text_area("Enter player names, one per line:")
 # Split the player names into a list
 player_list = players.splitlines()
 
-if len(player_list) > 0:
-    # Randomize map and colonies
-    selected_map, selected_colonies = randomize_setup(len(player_list))
+# Add a submit button
+if st.button("Submit"):
+    if len(player_list) > 0:
+        # Randomize map and colonies
+        selected_map, selected_colonies = randomize_setup(len(player_list))
 
-    # Select a first player
-    first_player = random.choice(player_list)
+        # Select a first player
+        first_player = random.choice(player_list)
 
-    # Display the results
-    st.subheader(f"Game Setup for {', '.join(player_list)}")
-    st.write(f"**Selected Map**: {selected_map}")
-    st.write("**Selected Colonies**:")
-    for colony in selected_colonies:
-        st.write(f"- {colony}")
-    st.write(f"\n**Starting Player**: {first_player}")
-else:
-    st.write("Please enter player names.")
+        # Display the results
+        st.subheader(f"Game Setup for {', '.join(player_list)}")
+        st.write(f"**Selected Map**: {selected_map}")
+        st.write("**Selected Colonies**:")
+        for colony in selected_colonies:
+            st.write(f"- {colony}")
+        st.write(f"\n**First Player**: {first_player}")
+    else:
+        st.write("Please enter player names.")
