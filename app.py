@@ -38,7 +38,7 @@ def randomize_setup(player_count, maps):
 st.image("Terraforming-Mars-logo-with-shadow.png", width=500)  # Adjust the width for larger size
 
 # Add the word "Randomizer" below the logo
-st.markdown("<h2 style='text-align: center; color: #333333;'>Randomizer</h2>", unsafe_allow_html=True)
+st.markdown("<h2 style='text-align: left; color: #333333;'>Randomizer</h2>", unsafe_allow_html=True)
 
 # Add a fun background image or color
 st.markdown(
