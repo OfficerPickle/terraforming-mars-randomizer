@@ -61,7 +61,7 @@ if st.session_state.page == "main":
     # Button to go to the map/colony selection page
     if st.button("Select Maps & Colonies"):
         st.session_state.page = "options"  # Transition to options page
-        st.experimental_rerun()
+        st.rerun()  # Use st.rerun instead of experimental_rerun
 
     # Submit button for game randomization
     if st.button("Submit"):
@@ -89,7 +89,7 @@ if st.session_state.page == "main":
                 st.session_state.selected_map = selected_map
                 st.session_state.selected_colonies = selected_colonies
                 st.session_state.first_player = first_player
-                st.experimental_rerun()
+                st.rerun()  # Use st.rerun instead of experimental_rerun
         else:
             st.write("Please enter player names.")
 
@@ -144,7 +144,7 @@ elif st.session_state.page == "options":
     # Button to go back to the main page
     if st.button("Back"):
         st.session_state.page = "main"
-        st.experimental_rerun()
+        st.rerun()  # Use st.rerun instead of experimental_rerun
 
 # Results Page (display the final result on a clean page)
 elif st.session_state.page == "results":
@@ -158,5 +158,4 @@ elif st.session_state.page == "results":
     # Button to go back to the main page
     if st.button("Back to Main Page"):
         st.session_state.page = "main"
-        st.experimental_rerun()
-
+        st.rerun()  # Use st.rerun instead of experimental_rerun
