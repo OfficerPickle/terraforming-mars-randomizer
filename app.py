@@ -62,8 +62,15 @@ st.markdown(
     """, unsafe_allow_html=True
 )
 
-# Input player names
-players = st.text_area("Enter player names, one per line:")
+# Input player names in 5 smaller text boxes
+player1 = st.text_input("Player 1", "")
+player2 = st.text_input("Player 2", "")
+player3 = st.text_input("Player 3", "")
+player4 = st.text_input("Player 4", "")
+player5 = st.text_input("Player 5", "")
+
+# Collect non-empty player names into a list
+player_list = [player for player in [player1, player2, player3, player4, player5] if player]
 
 # Checkbox to include "Amazonis Planitia"
 include_amazonis = st.checkbox("Include Amazonis Planitia in the map pool")
@@ -71,9 +78,6 @@ include_amazonis = st.checkbox("Include Amazonis Planitia in the map pool")
 # If checkbox is checked, add "Amazonis Planitia" to the maps list
 if include_amazonis:
     maps.append("Amazonis Planitia")
-
-# Split the player names into a list
-player_list = players.splitlines()
 
 # Add a submit button
 if st.button("Submit"):
