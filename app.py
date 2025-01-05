@@ -40,11 +40,14 @@ st.image("Terraforming-Mars-logo-with-shadow.png", width=500)  # Adjust the widt
 # Add the word "Randomizer" below the logo
 st.markdown("<h2 style='text-align: left; color: #333333;'>Randomizer</h2>", unsafe_allow_html=True)
 
-# Add a fun background image or color
+# Change the background color to reddish-orange
 st.markdown(
     """
     <style>
     .reportview-container {
+        background-color: #FF6F20;
+    }
+    .sidebar .sidebar-content {
         background-color: #FF6F20;
     }
     </style>
