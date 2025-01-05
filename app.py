@@ -41,7 +41,7 @@ st.markdown(
         cursor: pointer;
         transition: 0.3s;
         display: inline-block;
-        text-align: center;
+        text-align: left;
         margin: 10px 0;
     }
     .custom-button:hover {
