@@ -34,14 +34,8 @@ def randomize_setup(player_count, maps):
     selected_map = random.choice(maps)
     return selected_map, selected_colonies
 
-# Add the logo at the top with increased size
-st.markdown(
-    """
-    <div style="text-align: center;">
-        <img src="Terraforming-Mars-logo-with-shadow.png" width="500">
-    </div>
-    """, unsafe_allow_html=True
-)
+# Upload the image file
+uploaded_image = st.file_uploader("Upload Terraforming Mars logo", type=["png", "jpg", "jpeg"])
 
 # Add the word "Randomizer" below the logo
 st.markdown(
@@ -67,6 +61,10 @@ st.markdown(
     </style>
     """, unsafe_allow_html=True
 )
+
+# If an image is uploaded, display it
+if uploaded_image is not None:
+    st.image(uploaded_image, width=500, use_column_width=True)
 
 # Input player names
 players = st.text_area("Enter player names, one per line:")
