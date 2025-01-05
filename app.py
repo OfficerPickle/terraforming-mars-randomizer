@@ -31,7 +31,8 @@ default_colonies = [
 if "page" not in st.session_state:
     st.session_state.page = "main"
 if "selected_maps" not in st.session_state:
-    st.session_state.selected_maps = default_maps.copy()
+    # Exclude "Amazonis Planitia" by default
+    st.session_state.selected_maps = [map for map in default_maps if map != "Amazonis Planitia"]
 if "selected_colonies" not in st.session_state:
     st.session_state.selected_colonies = default_colonies.copy()
 
