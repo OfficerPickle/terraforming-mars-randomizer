@@ -2,10 +2,6 @@ import streamlit as st
 import random
 import time
 
-# Copyright Notice
-# Copyright (c) 2025, [Your Name]
-# All rights reserved.
-
 # Default list of available maps and colonies
 default_maps = [
     "Tharsis",
@@ -75,8 +71,41 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
+# Handle "results page" separately
+if st.session_state.show_results:
+    # Display spinner before showing results
+    with st.spinner("Randomizing game setup..."):
+        time.sleep(2)  # Simulate delay for spinning animation
+
+    # Retrieve player list and results
+    player_list = st.session_state.get("player_list", [])
+    
+    # Add "and" before the last player in the list (if applicable)
+    if len(player_list) > 1:
+        player_list[-1] = "and " + player_list[-1]
+
+    selected_map, selected_colonies = randomize_setup(
+        len(player_list), st.session_state.selected_maps, st.session_state.selected_colonies
+    )
+    first_player = random.choice(player_list)
+
+    # Display results
+    st.image("Terraforming-Mars-logo-with-shadow.png", width=500, use_container_width=True)
+    st.markdown(f"<div style='text-align: center;'><h3 style='color: #FF6F20;'>Game Setup for {', '.join(player_list)}</h3></div>", unsafe_allow_html=True)
+    st.write(f"**Selected Map**: {selected_map}")
+    st.write(f"**Selected Colonies ({len(selected_colonies)})**:")
+    for colony in selected_colonies:
+        st.write(f"- {colony}")
+    st.write(f"\n**First Player**: {first_player}")
+
+    # Button to go back to the main page
+    if st.button("Back to Main Page"):
+        st.session_state.show_results = False
+        st.session_state.player_list = []
+        st.rerun()
+
 # Main Page (where players input their names and set options)
-if st.session_state.page == "main":
+elif st.session_state.page == "main":
     st.image("Terraforming-Mars-logo-with-shadow.png", width=500, use_container_width=True)
     st.markdown("<div style='text-align: center;'><h2 style='color: #FF6F20;'>Game Randomizer</h2></div>", unsafe_allow_html=True)
 
@@ -108,41 +137,6 @@ if st.session_state.page == "main":
             st.rerun()
         else:
             st.write("Please enter player names.")
-
-    # Display copyright notice at the bottom of the main page
-    st.markdown(
-        "<div style='text-align: center; font-size: small; color: #555;'>"
-        "Copyright (c) 2025, John Piccirilli. All rights reserved."
-        "</div>", unsafe_allow_html=True
-    )
-
-# Handle "results page" separately
-elif st.session_state.show_results:
-    # Display spinner before showing results
-    with st.spinner("Randomizing game setup..."):
-        time.sleep(2)  # Simulate delay for spinning animation
-
-    # Retrieve player list and results
-    player_list = st.session_state.get("player_list", [])
-    selected_map, selected_colonies = randomize_setup(
-        len(player_list), st.session_state.selected_maps, st.session_state.selected_colonies
-    )
-    first_player = random.choice(player_list)
-
-    # Display results
-    st.image("Terraforming-Mars-logo-with-shadow.png", width=500, use_container_width=True)
-    st.markdown(f"<div style='text-align: center;'><h3 style='color: #FF6F20;'>Game Setup for {', '.join(player_list[:-1])} and {player_list[-1]}</h3></div>", unsafe_allow_html=True)
-    st.write(f"**Selected Map**: {selected_map}")
-    st.write(f"**Selected Colonies ({len(selected_colonies)})**:")
-    for colony in selected_colonies:
-        st.write(f"- {colony}")
-    st.write(f"\n**First Player**: {first_player}")
-
-    # Button to go back to the main page
-    if st.button("Back to Main Page"):
-        st.session_state.show_results = False
-        st.session_state.player_list = []
-        st.rerun()
 
 # Options Page (where maps and colonies can be selected)
 elif st.session_state.page == "options":
