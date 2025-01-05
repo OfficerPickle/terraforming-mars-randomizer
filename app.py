@@ -12,27 +12,11 @@ maps = [
     "Vastitas Borealis"
 ]
 
-# List of available colonies
-colonies = [
-    "Europa",
-    "Ganymede",
-    "Io",
-    "Callisto",
-    "Enceladus",
-    "Titan",
-    "Pluto",
-    "Miranda",
-    "Ceres",
-    "Luna",
-    "Triton"
-]
-
 # Function to randomize map and colonies
 def randomize_setup(player_count, maps):
     num_colonies = max(5, player_count + 2)
-    selected_colonies = random.sample(colonies, num_colonies)
     selected_map = random.choice(maps)
-    return selected_map, selected_colonies
+    return selected_map
 
 # Initialize session state for page navigation
 if "page" not in st.session_state:
@@ -55,53 +39,33 @@ if st.session_state.page == "main":
 
     # Checkbox to include "Amazonis Planitia"
     include_amazonis = st.checkbox("Include Amazonis Planitia in the map pool")
-    if include_amazonis:
+    if include_amazonis and "Amazonis Planitia" not in maps:
         maps.append("Amazonis Planitia")
 
     # Button to go to the options page
-    if st.button("Show Maps & Colonies"):
+    if st.button("Show Maps"):
         st.session_state.page = "options"
         st.rerun()  # Force rerun to refresh the page and navigate to options
 
     # Submit button for game randomization
     if st.button("Submit"):
         if len(player_list) > 0:
-            selected_map, selected_colonies = randomize_setup(len(player_list), maps)
+            selected_map = randomize_setup(len(player_list), maps)
             first_player = random.choice(player_list)
 
             # Show results
             st.markdown(f"<div style='text-align: center;'><h3 style='color: #FF6F20;'>Game Setup for {', '.join(player_list)}</h3></div>", unsafe_allow_html=True)
             st.write(f"**Selected Map**: {selected_map}")
-            st.write(f"**Selected Colonies ({len(selected_colonies)})**:")
-            for colony in selected_colonies:
-                st.write(f"- {colony}")
             st.write(f"\n**First Player**: {first_player}")
         else:
             st.write("Please enter player names.")
 
-# Options Page (where maps and colonies are listed)
+# Options Page (where maps are listed)
 elif st.session_state.page == "options":
-    # Show available maps and colonies in two columns
-    col1, col2 = st.columns(2)
-    
-    with col1:
-        st.subheader("Maps Used:")
-        for i, map in enumerate(maps[:len(maps)//2]):  # First half of the maps
-            st.write(f"- {map}")
-    
-    with col2:
-        st.subheader("Colonies Used:")
-        for i, colony in enumerate(colonies[:len(colonies)//2]):  # First half of the colonies
-            st.write(f"- {colony}")
-
-    # Add the second half of maps and colonies in the opposite columns
-    with col1:
-        for i, map in enumerate(maps[len(maps)//2:]):  # Second half of the maps
-            st.write(f"- {map}")
-    
-    with col2:
-        for i, colony in enumerate(colonies[len(colonies)//2:]):  # Second half of the colonies
-            st.write(f"- {colony}")
+    # Show available maps in a single column
+    st.subheader("Maps Used:")
+    for map in maps:
+        st.write(f"- {map}")
 
     # Button to go back to the main page
     if st.button("Back"):
