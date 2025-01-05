@@ -35,10 +35,22 @@ def randomize_setup(player_count, maps):
     return selected_map, selected_colonies
 
 # Add the logo at the top with increased size
-st.image("Terraforming-Mars-logo-with-shadow.png", width=500)  # Adjust the width for larger size
+st.markdown(
+    """
+    <div style="text-align: center;">
+        <img src="Terraforming-Mars-logo-with-shadow.png" width="500">
+    </div>
+    """, unsafe_allow_html=True
+)
 
 # Add the word "Randomizer" below the logo
-st.markdown("<h3 style='text-align: left; color: #FF6F20;'>Game Randomizer</h3>", unsafe_allow_html=True)
+st.markdown(
+    """
+    <div style="text-align: center;">
+        <h3 style="color: #FF6F20;">Game Randomizer</h3>
+    </div>
+    """, unsafe_allow_html=True
+)
 
 # Change the background color to black
 st.markdown(
@@ -113,7 +125,13 @@ if st.button("Submit"):
             player_display = player_list[0]
 
         # Display the final results after all animations are complete
-        st.markdown(f"<h3 style='text-align: left; color: #FF6F20;'>Game Setup for {player_display}</h3>", unsafe_allow_html=True)
+        st.markdown(
+            f"""
+            <div style="text-align: center;">
+                <h3 style="color: #FF6F20;">Game Setup for {player_display}</h3>
+            </div>
+            """, unsafe_allow_html=True
+        )
         st.write(f"**Selected Map**: {selected_map}")
         st.write("**Selected Colonies**:")
         for colony in selected_colonies:
