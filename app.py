@@ -84,25 +84,26 @@ if st.session_state.page == "main":
                 selected_map, selected_colonies = randomize_setup(len(player_list), st.session_state.selected_maps, st.session_state.selected_colonies)
                 first_player = random.choice(player_list)
 
-                # Show results
+                # Show results on a new page
                 st.session_state.page = "results"
+                st.session_state.selected_map = selected_map
+                st.session_state.selected_colonies = selected_colonies
+                st.session_state.first_player = first_player
                 st.rerun()
         else:
             st.write("Please enter player names.")
 
-# Results Page (display the final result after the "spinning" animation)
+# Results Page (display the final result on a clean page)
 elif st.session_state.page == "results":
-    selected_map, selected_colonies = randomize_setup(len(player_list), st.session_state.selected_maps, st.session_state.selected_colonies)
-    first_player = random.choice(player_list)
-
-    st.markdown(f"<div style='text-align: center;'><h3 style='color: #FF6F20;'>Game Setup for {', '.join(player_list)}</h3></div>", unsafe_allow_html=True)
-    st.write(f"**Selected Map**: {selected_map}")
-    st.write(f"**Selected Colonies ({len(selected_colonies)})**:")
-    for colony in selected_colonies:
+    st.markdown("<div style='text-align: center;'><h3 style='color: #FF6F20;'>Game Setup</h3></div>", unsafe_allow_html=True)
+    st.write(f"**Selected Map**: {st.session_state.selected_map}")
+    st.write(f"**Selected Colonies ({len(st.session_state.selected_colonies)})**:")
+    for colony in st.session_state.selected_colonies:
         st.write(f"- {colony}")
-    st.write(f"\n**First Player**: {first_player}")
+    st.write(f"\n**First Player**: {st.session_state.first_player}")
 
     # Button to go back to the main page
-    if st.button("Back"):
+    if st.button("Back to Main Page"):
         st.session_state.page = "main"
         st.rerun()
+
