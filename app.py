@@ -27,38 +27,6 @@ default_colonies = [
     "Triton",
 ]
 
-# Add custom CSS for the "Randomize!" button
-st.markdown(
-    """
-    <style>
-    .custom-button {
-        background-color: #FF6F20;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        font-size: 16px;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: 0.3s;
-        display: inline-block;
-        text-align: left;
-        margin: 10px 0;
-    }
-    .custom-button:hover {
-        background-color: #E65C1C;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True,
-)
-
-# Custom "Randomize!" button
-randomize_button = st.markdown(
-    '<div style="text-align: left;"><button class="custom-button">Randomize!</button></div>',
-    unsafe_allow_html=True,
-)
-
-
 # Initialize session state
 if "page" not in st.session_state:
     st.session_state.page = "main"
@@ -77,6 +45,30 @@ def randomize_setup(player_count, maps, colonies):
     selected_map = random.choice(maps)
     return selected_map, selected_colonies
 
+# Add custom CSS for buttons
+st.markdown(
+    """
+    <style>
+    .custom-button {
+        background-color: #FF6F20;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: 0.3s;
+        display: inline-block;
+        margin: 10px 0;
+    }
+    .custom-button:hover {
+        background-color: #E65C1C;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
 # Handle "results page" separately
 if st.session_state.show_results:
     # Display spinner before showing results
@@ -92,10 +84,7 @@ if st.session_state.show_results:
 
     # Display results
     st.image("Terraforming-Mars-logo-with-shadow.png", width=500, use_container_width=True)
-    st.markdown(
-        f"<div style='text-align: center;'><h3 style='color: #FF6F20;'>Game Setup for {', '.join(player_list)}</h3></div>",
-        unsafe_allow_html=True,
-    )
+    st.markdown(f"<div style='text-align: center;'><h3 style='color: #FF6F20;'>Game Setup for {', '.join(player_list)}</h3></div>", unsafe_allow_html=True)
     st.write(f"**Selected Map**: {selected_map}")
     st.write(f"**Selected Colonies ({len(selected_colonies)})**:")
     for colony in selected_colonies:
@@ -127,17 +116,20 @@ elif st.session_state.page == "main":
         st.session_state.page = "options"
         st.rerun()
 
-    # Custom "Randomize!" button
+    # Custom left-aligned "Randomize!" button
     randomize_button = st.markdown(
-        '<div style="text-align: center;"><button class="custom-button">Randomize!</button></div>',
+        '<div style="text-align: left;"><button class="custom-button">Randomize!</button></div>',
         unsafe_allow_html=True,
     )
-    if st.session_state.show_results or (randomize_button and len(player_list) > 0):
-        st.session_state.show_results = True
-        st.session_state.player_list = player_list
-        st.rerun()
-    elif randomize_button and len(player_list) == 0:
-        st.write("Please enter player names.")
+
+    # Logic for the Randomize! button
+    if st.button("Submit", key="randomize_button"):
+        if len(player_list) > 0:
+            st.session_state.show_results = True
+            st.session_state.player_list = player_list
+            st.rerun()
+        else:
+            st.write("Please enter player names.")
 
 # Options Page (where maps and colonies can be selected)
 elif st.session_state.page == "options":
@@ -147,6 +139,7 @@ elif st.session_state.page == "options":
     # Display maps in two columns
     for idx, map in enumerate(default_maps):
         with (col1 if idx % 2 == 0 else col2):
+            # Add special note for Amazonis Planitia
             if map == "Amazonis Planitia":
                 checkbox = st.checkbox(
                     f"{map} *",
