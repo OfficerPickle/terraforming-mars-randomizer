@@ -36,7 +36,9 @@ def randomize_setup(player_count, maps):
 
 # Streamlit user interface
 st.title("Terraforming Mars Randomizer")
-st.markdown(":rocket: **Terraforming Mars Randomizer** :earth_africa:")
+
+# Add the logo at the top
+st.image("Terraforming-Mars-logo-with-shadow.png", width=300)  # You can adjust the width as needed
 
 # Add a fun background image or color
 st.markdown(
