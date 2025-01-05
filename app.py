@@ -60,8 +60,8 @@ if st.session_state.page == "main":
 
     # Button to go to the map/colony selection page
     if st.button("Select Maps & Colonies"):
-        st.session_state.page = "options"
-        st.rerun()
+        st.session_state.page = "options"  # Transition to options page
+        st.experimental_rerun()
 
     # Submit button for game randomization
     if st.button("Submit"):
@@ -89,9 +89,62 @@ if st.session_state.page == "main":
                 st.session_state.selected_map = selected_map
                 st.session_state.selected_colonies = selected_colonies
                 st.session_state.first_player = first_player
-                st.rerun()
+                st.experimental_rerun()
         else:
             st.write("Please enter player names.")
+
+# Options Page (where maps and colonies can be selected)
+elif st.session_state.page == "options":
+    st.subheader("Select Maps")
+    col1, col2 = st.columns(2)
+
+    # Display maps in two columns
+    for idx, map in enumerate(default_maps):
+        with (col1 if idx % 2 == 0 else col2):
+            # Add special note for Amazonis Planitia
+            if map == "Amazonis Planitia":
+                checkbox = st.checkbox(
+                    f"{map} *",
+                    value=(map in st.session_state.selected_maps),
+                    help="Not recommended for smaller groups",
+                )
+                if checkbox:
+                    if map not in st.session_state.selected_maps:
+                        st.session_state.selected_maps.append(map)
+                else:
+                    if map in st.session_state.selected_maps:
+                        st.session_state.selected_maps.remove(map)
+                st.markdown(
+                    "<span style='font-size: small; font-style: italic;'>Not recommended for smaller groups</span>",
+                    unsafe_allow_html=True,
+                )
+            else:
+                checkbox = st.checkbox(map, value=(map in st.session_state.selected_maps))
+                if checkbox:
+                    if map not in st.session_state.selected_maps:
+                        st.session_state.selected_maps.append(map)
+                else:
+                    if map in st.session_state.selected_maps:
+                        st.session_state.selected_maps.remove(map)
+
+    st.subheader("Select Colonies")
+    col3, col4 = st.columns(2)
+
+    # Display colonies in two columns
+    for idx, colony in enumerate(default_colonies):
+        with (col3 if idx % 2 == 0 else col4):
+            checkbox = st.checkbox(colony, value=(colony in st.session_state.selected_colonies))
+            if checkbox:
+                if colony not in st.session_state.selected_colonies:
+                    st.session_state.selected_colonies.append(colony)
+            else:
+                if colony in st.session_state.selected_colonies:
+                    st.session_state.selected_colonies.remove(colony)
+
+    # Button to go back to the main page
+    if st.button("Back"):
+        st.session_state.page = "main"
+        st.experimental_rerun()
 
 # Results Page (display the final result on a clean page)
 elif st.session_state.page == "results":
@@ -105,5 +158,5 @@ elif st.session_state.page == "results":
     # Button to go back to the main page
     if st.button("Back to Main Page"):
         st.session_state.page = "main"
-        st.rerun()
+        st.experimental_rerun()
 
