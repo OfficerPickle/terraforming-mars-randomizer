@@ -59,7 +59,7 @@ if st.session_state.page == "main":
         maps.append("Amazonis Planitia")
 
     # Button to go to the options page
-    if st.button("Show Options"):
+    if st.button("Show Maps & Colonies"):
         st.session_state.page = "options"
         st.rerun()  # Force rerun to refresh the page and navigate to options
 
@@ -85,12 +85,12 @@ elif st.session_state.page == "options":
     col1, col2 = st.columns(2)
     
     with col1:
-        st.subheader("Available Maps:")
+        st.subheader("Maps Used:")
         for i, map in enumerate(maps[:len(maps)//2]):  # First half of the maps
             st.write(f"- {map}")
     
     with col2:
-        st.subheader("Available Colonies:")
+        st.subheader("Colonies Used:")
         for i, colony in enumerate(colonies[:len(colonies)//2]):  # First half of the colonies
             st.write(f"- {colony}")
 
