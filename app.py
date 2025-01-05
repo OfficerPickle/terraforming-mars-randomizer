@@ -75,8 +75,8 @@ if st.button("Submit"):
 
         # Slot machine animation effect for the map
         map_placeholder = st.empty()
-        map_animation_duration = 2  # Duration of the animation
-        num_spins = 10  # Number of spins (iterations)
+        map_animation_duration = 0.5  # Reduced to make the spin faster
+        num_spins = 5  # Fewer spins for faster animation
         for _ in range(num_spins):
             random_map = random.choice(maps)
             map_placeholder.text(f"Choosing map: {random_map}")
@@ -85,7 +85,7 @@ if st.button("Submit"):
 
         # Slot machine animation effect for the colonies
         colonies_placeholder = st.empty()
-        colonies_animation_duration = 2  # Duration of the animation
+        colonies_animation_duration = 0.5  # Reduced to make the spin faster
         for _ in range(num_spins):
             random_colony = random.choice(colonies)
             colonies_placeholder.text(f"Choosing colonies: {random_colony}")
@@ -94,7 +94,7 @@ if st.button("Submit"):
 
         # Slot machine animation effect for the first player
         player_placeholder = st.empty()
-        player_animation_duration = 2  # Duration of the animation
+        player_animation_duration = 0.5  # Reduced to make the spin faster
         for _ in range(num_spins):
             random_player = random.choice(player_list)
             player_placeholder.text(f"Choosing first player: {random_player}")
