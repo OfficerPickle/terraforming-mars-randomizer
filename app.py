@@ -83,24 +83,32 @@ if st.session_state.page == "main":
 # Options Page (where maps and colonies can be selected)
 elif st.session_state.page == "options":
     st.subheader("Select Maps")
-    for map in default_maps:
-        checkbox = st.checkbox(map, value=(map in st.session_state.selected_maps))
-        if checkbox:
-            if map not in st.session_state.selected_maps:
-                st.session_state.selected_maps.append(map)
-        else:
-            if map in st.session_state.selected_maps:
-                st.session_state.selected_maps.remove(map)
+    col1, col2 = st.columns(2)
+
+    # Display maps in two columns
+    for idx, map in enumerate(default_maps):
+        with (col1 if idx % 2 == 0 else col2):
+            checkbox = st.checkbox(map, value=(map in st.session_state.selected_maps))
+            if checkbox:
+                if map not in st.session_state.selected_maps:
+                    st.session_state.selected_maps.append(map)
+            else:
+                if map in st.session_state.selected_maps:
+                    st.session_state.selected_maps.remove(map)
 
     st.subheader("Select Colonies")
-    for colony in default_colonies:
-        checkbox = st.checkbox(colony, value=(colony in st.session_state.selected_colonies))
-        if checkbox:
-            if colony not in st.session_state.selected_colonies:
-                st.session_state.selected_colonies.append(colony)
-        else:
-            if colony in st.session_state.selected_colonies:
-                st.session_state.selected_colonies.remove(colony)
+    col3, col4 = st.columns(2)
+
+    # Display colonies in two columns
+    for idx, colony in enumerate(default_colonies):
+        with (col3 if idx % 2 == 0 else col4):
+            checkbox = st.checkbox(colony, value=(colony in st.session_state.selected_colonies))
+            if checkbox:
+                if colony not in st.session_state.selected_colonies:
+                    st.session_state.selected_colonies.append(colony)
+            else:
+                if colony in st.session_state.selected_colonies:
+                    st.session_state.selected_colonies.remove(colony)
 
     # Button to go back to the main page
     if st.button("Back"):
