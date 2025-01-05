@@ -37,6 +37,8 @@ if "selected_maps" not in st.session_state:
     st.session_state.selected_maps = [map for map in default_maps if map != "Amazonis Planitia"]
 if "selected_colonies" not in st.session_state:
     st.session_state.selected_colonies = default_colonies.copy()
+if "player_list" not in st.session_state:
+    st.session_state.player_list = []
 
 # Function to randomize map and colonies
 def randomize_setup(player_count, maps, colonies):
@@ -94,6 +96,7 @@ if st.session_state.show_results:
     # Button to go back to the main page
     if st.button("Back to Main Page"):
         st.session_state.show_results = False
+        st.session_state.player_list = []
         st.rerun()
 
 # Main Page (where players input their names and set options)
@@ -111,19 +114,21 @@ elif st.session_state.page == "main":
     # Collect non-empty player names into a list
     player_list = [player for player in [player1, player2, player3, player4, player5] if player]
 
+    # Store player list in session state to persist it
+    st.session_state.player_list = player_list
+
     # Button to go to the map/colony selection page
     if st.button("Select Maps & Colonies"):
         st.session_state.page = "options"
         st.rerun()
 
-    # Custom left-aligned "Randomize!" button
+    # Custom left-aligned "Randomize!" button (only triggers when clicked)
     if st.markdown(
-        '<div style="text-align: left;"><button class="custom-button">Randomize!</button></div>',
+        '<div style="text-align: left;"><button class="custom-button" onclick="window.location.reload()">Randomize!</button></div>',
         unsafe_allow_html=True,
     ):
         if len(player_list) > 0:
             st.session_state.show_results = True
-            st.session_state.player_list = player_list
             st.rerun()
         else:
             st.write("Please enter player names.")
