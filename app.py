@@ -127,9 +127,15 @@ if st.button("Submit"):
             """, unsafe_allow_html=True
         )
         st.write(f"**Selected Map**: {selected_map}")
-        st.write("**Selected Colonies**:")
+
+        # Display the number of selected colonies in the format "Selected Colonies(x)"
+        st.write(f"**Selected Colonies ({len(selected_colonies)})**:")
+
+        # Loop through and display each selected colony
         for colony in selected_colonies:
             st.write(f"- {colony}")
+
+        # Display the first player
         st.write(f"\n**First Player**: {first_player}")
     else:
         st.write("Please enter player names.")
