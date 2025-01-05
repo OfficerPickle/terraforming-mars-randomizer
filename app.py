@@ -35,7 +35,7 @@ def randomize_setup(player_count, maps):
     return selected_map, selected_colonies
 
 # Add the logo at the top with increased size (image located in the same directory)
-st.image("Terraforming-Mars-logo-with-shadow.png", width=500, use_column_width=True)
+st.image("Terraforming-Mars-logo-with-shadow.png", width=500, use_container_width=True)
 
 # Add the word "Randomizer" below the logo
 st.markdown(
