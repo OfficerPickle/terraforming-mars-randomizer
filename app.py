@@ -66,10 +66,16 @@ if st.session_state.page == "main":
     # Show results after clicking Submit
     if st.button("Submit"):
         if len(player_list) > 0:
-            # Show spinning animation
-            with st.spinner("Randomizing game setup..."):
-                time.sleep(2)  # Simulate delay for spinning animation
+            # Clear the screen
+            placeholder = st.empty()
+            with placeholder.container():
+                # Show spinning animation
+                with st.spinner("Randomizing game setup..."):
+                    time.sleep(2)  # Simulate delay for spinning animation
             
+            # Clear placeholder content
+            placeholder.empty()
+
             # Final results after spinning
             selected_map, selected_colonies = randomize_setup(len(player_list), st.session_state.selected_maps, st.session_state.selected_colonies)
             first_player = random.choice(player_list)
