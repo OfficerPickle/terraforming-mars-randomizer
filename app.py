@@ -111,7 +111,7 @@ if st.button("Submit"):
             player_display = player_list[0]
 
         # Display the final results after all animations are complete
-        st.subheader(f"Game Setup for {player_display}")
+        st.markdown(f"<h3 style='text-align: left; color: #FF6F20;'>Game Setup for {player_display}</h3>", unsafe_allow_html=True)
         st.write(f"**Selected Map**: {selected_map}")
         st.write("**Selected Colonies**:")
         for colony in selected_colonies:
