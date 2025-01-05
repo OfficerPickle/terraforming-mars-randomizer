@@ -133,7 +133,7 @@ elif st.session_state.page == "main":
     # Display copyright notice at the bottom of the results page
     st.markdown(
         "<div style='text-align: center; font-size: small; color: #555;'>"
-        "Copyright (c) 2025, [Your Name]. All rights reserved."
+        "Copyright (c) 2025, John Piccirilli. All rights reserved."
         "</div>", unsafe_allow_html=True
     )
     # Only run the randomization when the "Randomize!" button is clicked
