@@ -52,6 +52,13 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
+# Custom "Randomize!" button
+randomize_button = st.markdown(
+    '<div style="text-align: left;"><button class="custom-button">Randomize!</button></div>',
+    unsafe_allow_html=True,
+)
+
+
 # Initialize session state
 if "page" not in st.session_state:
     st.session_state.page = "main"
