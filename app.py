@@ -64,10 +64,10 @@ st.markdown(
 
 # Input player names in 5 smaller text boxes
 player1 = st.text_input("Player 1", "")
-player2 = st.text_input("Player 2", "")
-player3 = st.text_input("Player 3", "")
-player4 = st.text_input("Player 4", "")
-player5 = st.text_input("Player 5", "")
+player2 = st.text_input("Player 2", "", placeholder="Leave blank if not used")
+player3 = st.text_input("Player 3", "", placeholder="Leave blank if not used")
+player4 = st.text_input("Player 4", "", placeholder="Leave blank if not used")
+player5 = st.text_input("Player 5", "", placeholder="Leave blank if not used")
 
 # Collect non-empty player names into a list
 player_list = [player for player in [player1, player2, player3, player4, player5] if player]
