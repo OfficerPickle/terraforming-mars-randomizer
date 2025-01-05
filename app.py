@@ -130,6 +130,12 @@ elif st.session_state.page == "main":
     # Custom left-aligned "Randomize!" button (only triggers when clicked)
     randomize_button = st.button("Randomize!", key="randomize_button", use_container_width=True)
 
+    # Display copyright notice at the bottom of the results page
+    st.markdown(
+        "<div style='text-align: center; font-size: small; color: #555;'>"
+        "Copyright (c) 2025, [Your Name]. All rights reserved."
+        "</div>", unsafe_allow_html=True
+    )
     # Only run the randomization when the "Randomize!" button is clicked
     if randomize_button:
         if len(player_list) > 0:
