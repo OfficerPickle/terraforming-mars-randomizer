@@ -83,17 +83,9 @@ if include_amazonis:
 if "show_options" not in st.session_state:
     st.session_state.show_options = False
 
-if "button_label" not in st.session_state:
-    st.session_state.button_label = "Show Options"
-
 # Button to toggle between showing and hiding options
-if st.button(st.session_state.button_label):
+if st.button("Show Options" if not st.session_state.show_options else "Hide Options"):
     st.session_state.show_options = not st.session_state.show_options
-    # Change button label after the action
-    if st.session_state.show_options:
-        st.session_state.button_label = "Hide Options"
-    else:
-        st.session_state.button_label = "Show Options"
 
 # Show maps and colonies if the options are toggled
 if st.session_state.show_options:
