@@ -76,17 +76,33 @@ if st.button("Submit"):
             # Select a first player (we'll animate this)
             first_player = random.choice(player_list)
 
-            # Slot machine animation effect
-            placeholder = st.empty()  # Create a placeholder for the animated player selection
-            animation_duration = 2  # The duration for the animation
-            num_spins = 10  # Number of "spins" (iterations)
+            # Slot machine animation effect for the map
+            map_placeholder = st.empty()
+            map_animation_duration = 2  # Duration of the animation
+            num_spins = 10  # Number of spins (iterations)
+            for _ in range(num_spins):
+                random_map = random.choice(maps)
+                map_placeholder.text(f"Choosing map: {random_map}")
+                time.sleep(map_animation_duration / num_spins)
+            map_placeholder.text(f"Selected Map: {selected_map}")
+
+            # Slot machine animation effect for the colonies
+            colonies_placeholder = st.empty()
+            colonies_animation_duration = 2  # Duration of the animation
+            for _ in range(num_spins):
+                random_colony = random.choice(colonies)
+                colonies_placeholder.text(f"Choosing colonies: {random_colony}")
+                time.sleep(colonies_animation_duration / num_spins)
+            colonies_placeholder.text(f"Selected Colonies: {', '.join(selected_colonies)}")
+
+            # Slot machine animation effect for the first player
+            player_placeholder = st.empty()
+            player_animation_duration = 2  # Duration of the animation
             for _ in range(num_spins):
                 random_player = random.choice(player_list)
-                placeholder.text(f"Choosing first player: {random_player}")
-                time.sleep(animation_duration / num_spins)
-
-            # Final first player
-            placeholder.text(f"First Player: {first_player}")
+                player_placeholder.text(f"Choosing first player: {random_player}")
+                time.sleep(player_animation_duration / num_spins)
+            player_placeholder.text(f"First Player: {first_player}")
 
             # Format the player list with "and" before the last player
             if len(player_list) > 1:
@@ -94,7 +110,7 @@ if st.button("Submit"):
             else:
                 player_display = player_list[0]
 
-            # Display the map image and results
+            # Display the final results
             st.subheader(f"Game Setup for {player_display}")
             st.write(f"**Selected Map**: {selected_map}")
             st.write("**Selected Colonies**:")
