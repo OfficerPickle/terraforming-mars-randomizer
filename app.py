@@ -84,7 +84,7 @@ if st.session_state.page == "main":
                 selected_map, selected_colonies = randomize_setup(len(player_list), st.session_state.selected_maps, st.session_state.selected_colonies)
                 first_player = random.choice(player_list)
 
-                # Show results on a new page
+                # Store the results in session state for the results page
                 st.session_state.page = "results"
                 st.session_state.selected_map = selected_map
                 st.session_state.selected_colonies = selected_colonies
@@ -149,6 +149,20 @@ elif st.session_state.page == "options":
 # Results Page (display the final result on a clean page)
 elif st.session_state.page == "results":
     st.markdown("<div style='text-align: center;'><h3 style='color: #FF6F20;'>Game Setup</h3></div>", unsafe_allow_html=True)
+    
+    # Show the slot machine animation on the results page
+    with st.spinner('Spinning...'):
+        time.sleep(2)  # Simulate a delay for animation
+        animation_placeholder = st.empty()
+
+        # Simulate the spinning animation
+        for _ in range(10):  # Loop for a number of spins
+            selected_map = random.choice(st.session_state.selected_maps)
+            selected_colonies = random.sample(st.session_state.selected_colonies, max(5, len(player_list) + 2))
+            animation_placeholder.markdown(f"**Spinning...**\nMap: {selected_map}\nColonies: {', '.join(selected_colonies)}")
+            time.sleep(0.1)  # Simulate spin delay
+
+    # Show the final results after the animation
     st.write(f"**Selected Map**: {st.session_state.selected_map}")
     st.write(f"**Selected Colonies ({len(st.session_state.selected_colonies)})**:")
     for colony in st.session_state.selected_colonies:
