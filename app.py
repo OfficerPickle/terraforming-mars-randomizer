@@ -79,18 +79,18 @@ include_amazonis = st.checkbox("Include Amazonis Planitia in the map pool")
 if include_amazonis:
     maps.append("Amazonis Planitia")
 
-# Add a toggle for showing or hiding options (maps and colonies)
+# Initialize session state to control button label and visibility
 if "show_options" not in st.session_state:
     st.session_state.show_options = False
 
-# Toggle button to show/hide available maps and colonies
-if st.session_state.show_options:
-    button_label = "Hide Options"
-else:
-    button_label = "Show Options"
+if "button_label" not in st.session_state:
+    st.session_state.button_label = "Show Options"
 
-if st.button(button_label):
+# Button to toggle between showing and hiding options
+if st.button(st.session_state.button_label):
     st.session_state.show_options = not st.session_state.show_options
+    # Change button label after the action
+    st.session_state.button_label = "Hide Options" if st.session_state.show_options else "Show Options"
 
 # Show maps and colonies if the options are toggled
 if st.session_state.show_options:
