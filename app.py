@@ -88,13 +88,31 @@ elif st.session_state.page == "options":
     # Display maps in two columns
     for idx, map in enumerate(default_maps):
         with (col1 if idx % 2 == 0 else col2):
-            checkbox = st.checkbox(map, value=(map in st.session_state.selected_maps))
-            if checkbox:
-                if map not in st.session_state.selected_maps:
-                    st.session_state.selected_maps.append(map)
+            # Add special note for Amazonis Planitia
+            if map == "Amazonis Planitia":
+                checkbox = st.checkbox(
+                    f"{map} *",
+                    value=(map in st.session_state.selected_maps),
+                    help="Not recommended for smaller groups",
+                )
+                if checkbox:
+                    if map not in st.session_state.selected_maps:
+                        st.session_state.selected_maps.append(map)
+                else:
+                    if map in st.session_state.selected_maps:
+                        st.session_state.selected_maps.remove(map)
+                st.markdown(
+                    "<span style='font-size: small; font-style: italic;'>Not recommended for smaller groups</span>",
+                    unsafe_allow_html=True,
+                )
             else:
-                if map in st.session_state.selected_maps:
-                    st.session_state.selected_maps.remove(map)
+                checkbox = st.checkbox(map, value=(map in st.session_state.selected_maps))
+                if checkbox:
+                    if map not in st.session_state.selected_maps:
+                        st.session_state.selected_maps.append(map)
+                else:
+                    if map in st.session_state.selected_maps:
+                        st.session_state.selected_maps.remove(map)
 
     st.subheader("Select Colonies")
     col3, col4 = st.columns(2)
