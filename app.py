@@ -90,7 +90,10 @@ if "button_label" not in st.session_state:
 if st.button(st.session_state.button_label):
     st.session_state.show_options = not st.session_state.show_options
     # Change button label after the action
-    st.session_state.button_label = "Hide Options" if st.session_state.show_options else "Show Options"
+    if st.session_state.show_options:
+        st.session_state.button_label = "Hide Options"
+    else:
+        st.session_state.button_label = "Show Options"
 
 # Show maps and colonies if the options are toggled
 if st.session_state.show_options:
