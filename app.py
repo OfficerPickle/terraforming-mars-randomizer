@@ -76,7 +76,7 @@ if st.button("Submit"):
         # Slot machine animation effect for the map
         map_placeholder = st.empty()
         map_animation_duration = 0.5  # Reduced to make the spin faster
-        num_spins = 5  # Fewer spins for faster animation
+        num_spins = 10  # Fewer spins for faster animation
         for _ in range(num_spins):
             random_map = random.choice(maps)
             map_placeholder.text(f"Choosing map: {random_map}")
