@@ -58,6 +58,10 @@ st.markdown(
         background-color: black;
         color: white;
     }
+    /* Adjust the width of text inputs */
+    input {
+        width: 25% !important;
+    }
     </style>
     """, unsafe_allow_html=True
 )
