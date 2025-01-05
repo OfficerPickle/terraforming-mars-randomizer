@@ -1,6 +1,6 @@
 import streamlit as st
 import random
-import time  # To simulate a delay (if needed)
+import time
 
 # List of available maps
 maps = [
@@ -73,8 +73,20 @@ if st.button("Submit"):
             # Randomize map and colonies
             selected_map, selected_colonies = randomize_setup(len(player_list), maps)
 
-            # Select a first player
+            # Select a first player (we'll animate this)
             first_player = random.choice(player_list)
+
+            # Slot machine animation effect
+            placeholder = st.empty()  # Create a placeholder for the animated player selection
+            animation_duration = 2  # The duration for the animation
+            num_spins = 10  # Number of "spins" (iterations)
+            for _ in range(num_spins):
+                random_player = random.choice(player_list)
+                placeholder.text(f"Choosing first player: {random_player}")
+                time.sleep(animation_duration / num_spins)
+
+            # Final first player
+            placeholder.text(f"First Player: {first_player}")
 
             # Format the player list with "and" before the last player
             if len(player_list) > 1:
