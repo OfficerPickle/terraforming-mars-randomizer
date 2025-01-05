@@ -79,6 +79,16 @@ include_amazonis = st.checkbox("Include Amazonis Planitia in the map pool")
 if include_amazonis:
     maps.append("Amazonis Planitia")
 
+# Button to show available maps and colonies
+if st.button("Show Options"):
+    st.subheader("Available Maps:")
+    for map in maps:
+        st.write(f"- {map}")
+
+    st.subheader("Available Colonies:")
+    for colony in colonies:
+        st.write(f"- {colony}")
+
 # Add a submit button
 if st.button("Submit"):
     if len(player_list) > 0:
