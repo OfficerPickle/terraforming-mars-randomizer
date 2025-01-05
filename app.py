@@ -93,8 +93,8 @@ elif st.session_state.page == "main":
         st.session_state.page = "options"
         st.rerun()
 
-    # Submit button for game randomization
-    if st.button("Submit"):
+    # Randomize button for game randomization
+    if st.button("Randomize!"):
         if len(player_list) > 0:
             st.session_state.show_results = True
             st.session_state.player_list = player_list
