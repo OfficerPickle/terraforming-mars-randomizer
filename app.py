@@ -81,14 +81,27 @@ if st.session_state.page == "main":
 
 # Options Page (where maps and colonies are listed)
 elif st.session_state.page == "options":
-    # Show available maps and colonies
-    st.subheader("Available Maps:")
-    for map in maps:
-        st.write(f"- {map}")
+    # Show available maps and colonies in two columns
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.subheader("Available Maps:")
+        for i, map in enumerate(maps[:len(maps)//2]):  # First half of the maps
+            st.write(f"- {map}")
+    
+    with col2:
+        st.subheader("Available Colonies:")
+        for i, colony in enumerate(colonies[:len(colonies)//2]):  # First half of the colonies
+            st.write(f"- {colony}")
 
-    st.subheader("Available Colonies:")
-    for colony in colonies:
-        st.write(f"- {colony}")
+    # Add the second half of maps and colonies in the opposite columns
+    with col1:
+        for i, map in enumerate(maps[len(maps)//2:]):  # Second half of the maps
+            st.write(f"- {map}")
+    
+    with col2:
+        for i, colony in enumerate(colonies[len(colonies)//2:]):  # Second half of the colonies
+            st.write(f"- {colony}")
 
     # Button to go back to the main page
     if st.button("Back"):
