@@ -84,8 +84,6 @@ if st.session_state.page == "main":
 elif st.session_state.page == "options":
     st.subheader("Select Maps")
     for map in default_maps:
-        if map not in st.session_state.selected_maps:
-            st.session_state.selected_maps.append(map)  # Reset selection if it was removed
         checkbox = st.checkbox(map, value=(map in st.session_state.selected_maps))
         if checkbox:
             if map not in st.session_state.selected_maps:
@@ -96,8 +94,6 @@ elif st.session_state.page == "options":
 
     st.subheader("Select Colonies")
     for colony in default_colonies:
-        if colony not in st.session_state.selected_colonies:
-            st.session_state.selected_colonies.append(colony)  # Reset selection if it was removed
         checkbox = st.checkbox(colony, value=(colony in st.session_state.selected_colonies))
         if checkbox:
             if colony not in st.session_state.selected_colonies:
@@ -105,8 +101,6 @@ elif st.session_state.page == "options":
         else:
             if colony in st.session_state.selected_colonies:
                 st.session_state.selected_colonies.remove(colony)
-
-    st.markdown("<i>Amazonis Planitia map only used if selected</i>", unsafe_allow_html=True)
 
     # Button to go back to the main page
     if st.button("Back"):
