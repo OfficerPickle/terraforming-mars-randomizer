@@ -76,8 +76,14 @@ if st.button("Submit"):
             # Select a first player
             first_player = random.choice(player_list)
 
+            # Format the player list with "and" before the last player
+            if len(player_list) > 1:
+                player_display = ", ".join(player_list[:-1]) + " and " + player_list[-1]
+            else:
+                player_display = player_list[0]
+
             # Display the map image and results
-            st.subheader(f"Game Setup for {', '.join(player_list)}")
+            st.subheader(f"Game Setup for {player_display}")
             st.write(f"**Selected Map**: {selected_map}")
             st.write("**Selected Colonies**:")
             for colony in selected_colonies:
