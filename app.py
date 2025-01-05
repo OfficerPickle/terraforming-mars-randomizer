@@ -14,7 +14,6 @@ maps = [
 
 # Function to randomize map and colonies
 def randomize_setup(player_count, maps):
-    num_colonies = max(5, player_count + 2)
     selected_map = random.choice(maps)
     return selected_map
 
@@ -66,6 +65,9 @@ elif st.session_state.page == "options":
     st.subheader("Maps Used:")
     for map in maps:
         st.write(f"- {map}")
+
+    # Add note about Amazonis Planitia
+    st.markdown("<i>Amazonis Planitia map only used if checked</i>", unsafe_allow_html=True)
 
     # Button to go back to the main page
     if st.button("Back"):
