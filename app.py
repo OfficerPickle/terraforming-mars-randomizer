@@ -79,6 +79,11 @@ if st.session_state.show_results:
 
     # Retrieve player list and results
     player_list = st.session_state.get("player_list", [])
+    
+    # Add "and" before the last player in the list (if applicable)
+    if len(player_list) > 1:
+        player_list[-1] = "and " + player_list[-1]
+
     selected_map, selected_colonies = randomize_setup(
         len(player_list), st.session_state.selected_maps, st.session_state.selected_colonies
     )
@@ -86,14 +91,7 @@ if st.session_state.show_results:
 
     # Display results
     st.image("Terraforming-Mars-logo-with-shadow.png", width=500, use_container_width=True)
-    
-# Add "and" before the last player in the list
-if len(player_list) > 1:
-    player_list[-1] = "and " + player_list[-1]
-
-# Display game setup with the modified list
-st.markdown(f"<div style='text-align: center;'><h3 style='color: #FF6F20;'>Game Setup for {', '.join(player_list)}</h3></div>", unsafe_allow_html=True)
-
+    st.markdown(f"<div style='text-align: center;'><h3 style='color: #FF6F20;'>Game Setup for {', '.join(player_list)}</h3></div>", unsafe_allow_html=True)
     st.write(f"**Selected Map**: {selected_map}")
     st.write(f"**Selected Colonies ({len(selected_colonies)})**:")
     for colony in selected_colonies:
