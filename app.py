@@ -34,11 +34,11 @@ def randomize_setup(player_count, maps):
     selected_map = random.choice(maps)
     return selected_map, selected_colonies
 
-# Streamlit user interface
-st.title("Terraforming Mars Randomizer")
+# Add the logo at the top with increased size
+st.image("Terraforming-Mars-logo-with-shadow.png", width=500)  # Adjust the width for larger size
 
-# Add the logo at the top
-st.image("Terraforming-Mars-logo-with-shadow.png", width=300)  # You can adjust the width as needed
+# Add the word "Randomizer" below the logo
+st.markdown("<h2 style='text-align: center; color: #333333;'>Randomizer</h2>", unsafe_allow_html=True)
 
 # Add a fun background image or color
 st.markdown(
