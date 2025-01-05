@@ -2,6 +2,10 @@ import streamlit as st
 import random
 import time
 
+# Copyright Notice
+# Copyright (c) 2025, [Your Name]
+# All rights reserved.
+
 # Default list of available maps and colonies
 default_maps = [
     "Tharsis",
@@ -79,11 +83,6 @@ if st.session_state.show_results:
 
     # Retrieve player list and results
     player_list = st.session_state.get("player_list", [])
-    
-    # Add "and" before the last player in the list (if applicable)
-    if len(player_list) > 1:
-        player_list[-1] = "and " + player_list[-1]
-
     selected_map, selected_colonies = randomize_setup(
         len(player_list), st.session_state.selected_maps, st.session_state.selected_colonies
     )
@@ -91,12 +90,19 @@ if st.session_state.show_results:
 
     # Display results
     st.image("Terraforming-Mars-logo-with-shadow.png", width=500, use_container_width=True)
-    st.markdown(f"<div style='text-align: center;'><h3 style='color: #FF6F20;'>Game Setup for {', '.join(player_list)}</h3></div>", unsafe_allow_html=True)
+    st.markdown(f"<div style='text-align: center;'><h3 style='color: #FF6F20;'>Game Setup for {', '.join(player_list[:-1])} and {player_list[-1]}</h3></div>", unsafe_allow_html=True)
     st.write(f"**Selected Map**: {selected_map}")
     st.write(f"**Selected Colonies ({len(selected_colonies)})**:")
     for colony in selected_colonies:
         st.write(f"- {colony}")
     st.write(f"\n**First Player**: {first_player}")
+
+    # Display copyright notice at the bottom of the results page
+    st.markdown(
+        "<div style='text-align: center; font-size: small; color: #555;'>"
+        "Copyright (c) 2025, [Your Name]. All rights reserved."
+        "</div>", unsafe_allow_html=True
+    )
 
     # Button to go back to the main page
     if st.button("Back to Main Page"):
