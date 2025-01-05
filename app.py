@@ -2,6 +2,10 @@ import streamlit as st
 import random
 import time
 
+# Copyright Notice
+# Copyright (c) 2025, John Piccirilli
+# All rights reserved.
+
 # Default list of available maps and colonies
 default_maps = [
     "Tharsis",
