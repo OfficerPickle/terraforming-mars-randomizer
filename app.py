@@ -66,20 +66,10 @@ if st.session_state.page == "main":
     # Show results after clicking Submit
     if st.button("Submit"):
         if len(player_list) > 0:
-            # Show slot machine animation
-            with st.spinner('Spinning...'):
-                time.sleep(2)  # Simulate a delay for animation
-
-                # Create an empty container for animation
-                animation_placeholder = st.empty()
-
-                # Simulate the spinning animation
-                for _ in range(10):  # Loop for a number of spins
-                    selected_map = random.choice(st.session_state.selected_maps)
-                    selected_colonies = random.sample(st.session_state.selected_colonies, max(5, len(player_list) + 2))
-                    animation_placeholder.markdown(f"**Spinning...**\nMap: {selected_map}\nColonies: {', '.join(selected_colonies)}")
-                    time.sleep(0.1)  # Simulate spin delay
-
+            # Show spinning animation
+            with st.spinner("Randomizing game setup..."):
+                time.sleep(2)  # Simulate delay for spinning animation
+            
             # Final results after spinning
             selected_map, selected_colonies = randomize_setup(len(player_list), st.session_state.selected_maps, st.session_state.selected_colonies)
             first_player = random.choice(player_list)
