@@ -117,13 +117,10 @@ elif st.session_state.page == "main":
         st.rerun()
 
     # Custom left-aligned "Randomize!" button
-    randomize_button = st.markdown(
+    if st.markdown(
         '<div style="text-align: left;"><button class="custom-button">Randomize!</button></div>',
         unsafe_allow_html=True,
-    )
-
-    # Logic for the Randomize! button
-    if st.button("Randomize!", key="randomize_button"):
+    ):
         if len(player_list) > 0:
             st.session_state.show_results = True
             st.session_state.player_list = player_list
