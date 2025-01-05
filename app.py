@@ -58,6 +58,9 @@ if st.session_state.page == "main":
     # Collect non-empty player names into a list
     player_list = [player for player in [player1, player2, player3, player4, player5] if player]
 
+    # Store player_list in session state for later use
+    st.session_state.player_list = player_list
+
     # Button to go to the map/colony selection page
     if st.button("Select Maps & Colonies"):
         st.session_state.page = "options"  # Transition to options page
@@ -149,7 +152,10 @@ elif st.session_state.page == "options":
 # Results Page (display the final result on a clean page)
 elif st.session_state.page == "results":
     st.markdown("<div style='text-align: center;'><h3 style='color: #FF6F20;'>Game Setup</h3></div>", unsafe_allow_html=True)
-    
+
+    # Get player list from session state
+    player_list = st.session_state.player_list
+
     # Show the slot machine animation on the results page
     with st.spinner('Spinning...'):
         time.sleep(2)  # Simulate a delay for animation
