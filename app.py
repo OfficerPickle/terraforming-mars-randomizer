@@ -61,7 +61,7 @@ if st.session_state.page == "main":
     # Button to go to the options page
     if st.button("Show Options"):
         st.session_state.page = "options"
-        st.experimental_rerun()  # Force rerun to refresh the page and navigate to options
+        st.rerun()  # Force rerun to refresh the page and navigate to options
 
     # Submit button for game randomization
     if st.button("Submit"):
@@ -93,4 +93,4 @@ elif st.session_state.page == "options":
     # Button to go back to the main page
     if st.button("Back"):
         st.session_state.page = "main"
-        st.experimental_rerun()  # Force rerun to refresh and go back to the main page
+        st.rerun()  # Force rerun to refresh and go back to the main page
