@@ -66,68 +66,41 @@ if st.session_state.page == "main":
     # Submit button for game randomization
     if st.button("Submit"):
         if len(player_list) > 0:
-            selected_map, selected_colonies = randomize_setup(
-                len(player_list), st.session_state.selected_maps, st.session_state.selected_colonies
-            )
-            first_player = random.choice(player_list)
+            # Show slot machine animation
+            with st.spinner('Spinning...'):
+                time.sleep(2)  # Simulate a delay for animation
 
-            # Show results
-            st.markdown(f"<div style='text-align: center;'><h3 style='color: #FF6F20;'>Game Setup for {', '.join(player_list)}</h3></div>", unsafe_allow_html=True)
-            st.write(f"**Selected Map**: {selected_map}")
-            st.write(f"**Selected Colonies ({len(selected_colonies)})**:")
-            for colony in selected_colonies:
-                st.write(f"- {colony}")
-            st.write(f"\n**First Player**: {first_player}")
+                # Create an empty container for animation
+                animation_placeholder = st.empty()
+
+                # Simulate the spinning animation
+                for _ in range(10):  # Loop for a number of spins
+                    selected_map = random.choice(st.session_state.selected_maps)
+                    selected_colonies = random.sample(st.session_state.selected_colonies, max(5, len(player_list) + 2))
+                    animation_placeholder.markdown(f"**Spinning...**\nMap: {selected_map}\nColonies: {', '.join(selected_colonies)}")
+                    time.sleep(0.1)  # Simulate spin delay
+
+                # Final results after spinning
+                selected_map, selected_colonies = randomize_setup(len(player_list), st.session_state.selected_maps, st.session_state.selected_colonies)
+                first_player = random.choice(player_list)
+
+                # Show results
+                st.session_state.page = "results"
+                st.rerun()
         else:
             st.write("Please enter player names.")
 
-# Options Page (where maps and colonies can be selected)
-elif st.session_state.page == "options":
-    st.subheader("Select Maps")
-    col1, col2 = st.columns(2)
+# Results Page (display the final result after the "spinning" animation)
+elif st.session_state.page == "results":
+    selected_map, selected_colonies = randomize_setup(len(player_list), st.session_state.selected_maps, st.session_state.selected_colonies)
+    first_player = random.choice(player_list)
 
-    # Display maps in two columns
-    for idx, map in enumerate(default_maps):
-        with (col1 if idx % 2 == 0 else col2):
-            # Add special note for Amazonis Planitia
-            if map == "Amazonis Planitia":
-                checkbox = st.checkbox(
-                    f"{map} *",
-                    value=(map in st.session_state.selected_maps),
-                    help="Not recommended for smaller groups",
-                )
-                if checkbox:
-                    if map not in st.session_state.selected_maps:
-                        st.session_state.selected_maps.append(map)
-                else:
-                    if map in st.session_state.selected_maps:
-                        st.session_state.selected_maps.remove(map)
-                st.markdown(
-                    "<span style='font-size: small; font-style: italic;'>Not recommended for smaller groups</span>",
-                    unsafe_allow_html=True,
-                )
-            else:
-                checkbox = st.checkbox(map, value=(map in st.session_state.selected_maps))
-                if checkbox:
-                    if map not in st.session_state.selected_maps:
-                        st.session_state.selected_maps.append(map)
-                else:
-                    if map in st.session_state.selected_maps:
-                        st.session_state.selected_maps.remove(map)
-
-    st.subheader("Select Colonies")
-    col3, col4 = st.columns(2)
-
-    # Display colonies in two columns
-    for idx, colony in enumerate(default_colonies):
-        with (col3 if idx % 2 == 0 else col4):
-            checkbox = st.checkbox(colony, value=(colony in st.session_state.selected_colonies))
-            if checkbox:
-                if colony not in st.session_state.selected_colonies:
-                    st.session_state.selected_colonies.append(colony)
-            else:
-                if colony in st.session_state.selected_colonies:
-                    st.session_state.selected_colonies.remove(colony)
+    st.markdown(f"<div style='text-align: center;'><h3 style='color: #FF6F20;'>Game Setup for {', '.join(player_list)}</h3></div>", unsafe_allow_html=True)
+    st.write(f"**Selected Map**: {selected_map}")
+    st.write(f"**Selected Colonies ({len(selected_colonies)})**:")
+    for colony in selected_colonies:
+        st.write(f"- {colony}")
+    st.write(f"\n**First Player**: {first_player}")
 
     # Button to go back to the main page
     if st.button("Back"):
