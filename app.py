@@ -55,6 +55,6 @@ if len(player_list) > 0:
     st.write("**Selected Colonies**:")
     for colony in selected_colonies:
         st.write(f"- {colony}")
-    st.write(f"\n**First Player**: {first_player}")
+    st.write(f"\n**Starting Player**: {first_player}")
 else:
     st.write("Please enter player names.")
