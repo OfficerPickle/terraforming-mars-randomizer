@@ -109,7 +109,7 @@ if st.session_state.show_results:
     )
     first_player = random.choice(player_list)
 
-    st.image("static/terraforming-mars-logo-with-shadow.png", use_container_width=True)
+    st.image("terraforming-mars-logo-with-shadow.png", use_container_width=True)
     st.markdown(f"<div style='text-align: center;'><h3 style='color: #FF6F20;'>Game Setup for {', '.join(player_list)}</h3></div>", unsafe_allow_html=True)
     st.write(f"**Selected Map**: {selected_map}")
     st.write(f"**Selected Colonies ({len(selected_colonies)})**:")
