@@ -6,46 +6,6 @@ import time
 # Copyright (c) 2025, John Piccirilli
 # All rights reserved.
 
-# Add a Mars-themed background image using custom CSS
-st.markdown(
-    f"""
-    <style>
-    /* Apply background to the entire page */
-    .stApp {{
-        background-image: url("/static/mars.jpg");
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed;
-        color: white;
-    }}
-    
-    /* Customize text for better readability */
-    h1, h2, h3, h4, h5, h6, p, label {{
-        color: white;
-        text-shadow: 1px 1px 2px black;
-    }}
-    
-    /* Style buttons */
-    .stButton>button {{
-        background-color: #FF6F20;
-        color: white;
-        border: none;
-        border-radius: 8px;
-        font-size: 16px;
-        padding: 10px 20px;
-        box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
-        transition: 0.3s ease-in-out;
-    }}
-    .stButton>button:hover {{
-        background-color: #E65C1C;
-    }}
-    </style>
-    """,
-    unsafe_allow_html=True
-)
-
-
-
 # Default list of available maps and colonies
 default_maps = [
     "Tharsis",
@@ -91,10 +51,19 @@ def randomize_setup(player_count, maps, colonies):
     selected_map = random.choice(maps)
     return selected_map, selected_colonies
 
-# Add custom CSS for buttons
+# Add custom CSS for buttons and background image
 st.markdown(
     """
     <style>
+    body {
+        background-image: url('/static/mars.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        height: 100vh;
+        color: white;
+    }
+
     .custom-button {
         background-color: #FF6F20;
         color: white;
@@ -153,7 +122,7 @@ elif st.session_state.page == "main":
     st.image("Terraforming-Mars-logo-with-shadow.png", width=500, use_container_width=True)
     st.markdown("<div style='text-align: center;'><h2 style='color: #FF6F20;'>Game Randomizer</h2></div>", unsafe_allow_html=True)
 
-    # Input player names in smaller text boxes
+    # Input player names in 5 smaller text boxes
     player1 = st.text_input("Player 1", "")
     player2 = st.text_input("Player 2", "", placeholder="Leave blank if not used")
     player3 = st.text_input("Player 3", "", placeholder="Leave blank if not used")
@@ -174,16 +143,11 @@ elif st.session_state.page == "main":
     # Custom left-aligned "Randomize!" button (only triggers when clicked)
     randomize_button = st.button("Randomize!", key="randomize_button", use_container_width=True)
 
-    # Display copyright notice and disclaimer at the bottom
+    # Display copyright notice at the bottom of the main page
     st.markdown(
-        """
-        <div style='text-align: center; font-size: small; color: #555;'>
-        Copyright (c) 2025, John Piccirilli. All rights reserved.<br>
-        Disclaimer: This project is a fan-made tool intended for personal use and is not affiliated with, endorsed by, or associated with FryxGames or its affiliates.
-        All trademarks, copyrights, and intellectual property related to 'Terraforming Mars' are the property of FryxGames. No copyright infringement is intended.
-        </div>
-        """,
-        unsafe_allow_html=True,
+        "<div style='text-align: center; font-size: small; color: #555;'>"
+        "Copyright (c) 2025, John Piccirilli. All rights reserved."
+        "</div>", unsafe_allow_html=True
     )
 
     # Only run the randomization when the "Randomize!" button is clicked
@@ -194,23 +158,13 @@ elif st.session_state.page == "main":
         else:
             st.write("Please enter player names.")
 
-
-
 # Options Page (where maps and colonies can be selected)
 elif st.session_state.page == "options":
     st.subheader("Select Maps")
 
-    # Display default maps with checkboxes
-    for map in default_maps:
-        if map == "Amazonis Planitia":
-            checkbox = st.checkbox(
-                f"{map} *",
-                value=(map in st.session_state.selected_maps),
-                help="Not recommended for smaller groups",
-            )
-        else:
-            checkbox = st.checkbox(map, value=(map in st.session_state.selected_maps))
-
+    # Display maps in one section
+    for idx, map in enumerate(default_maps):
+        checkbox = st.checkbox(map, value=(map in st.session_state.selected_maps))
         if checkbox:
             if map not in st.session_state.selected_maps:
                 st.session_state.selected_maps.append(map)
@@ -218,40 +172,29 @@ elif st.session_state.page == "options":
             if map in st.session_state.selected_maps:
                 st.session_state.selected_maps.remove(map)
 
-    # Add custom maps text boxes with checkboxes
-    
-    col1, col2 = st.columns([1, 5])
+    st.subheader("Add Custom Maps")
 
-    # Custom Map 1
-    custom_map_1_checkbox = col1.checkbox("", value=False, key="custom_map_1_checkbox")
-    custom_map_1 = col2.text_input(
-        "", placeholder="Enter custom map", key="custom_map_1"
-    )
+    # Custom map 1 text box with checkbox
+    custom_map_1 = st.text_input("Custom Map 1", key="custom_map_1", max_chars=50)
+    custom_map_1_checkbox = st.checkbox(f"Include {custom_map_1}", value=False, key="custom_map_1_checkbox")
 
-    if custom_map_1_checkbox and custom_map_1:
-        if custom_map_1 not in st.session_state.selected_maps:
-            st.session_state.selected_maps.append(custom_map_1)
-    else:
-        if custom_map_1 in st.session_state.selected_maps:
-            st.session_state.selected_maps.remove(custom_map_1)
+    if custom_map_1_checkbox and custom_map_1 not in st.session_state.selected_maps:
+        st.session_state.selected_maps.append(custom_map_1)
+    elif not custom_map_1_checkbox and custom_map_1 in st.session_state.selected_maps:
+        st.session_state.selected_maps.remove(custom_map_1)
 
-    # Custom Map 2
-    col3, col4 = st.columns([1, 5])
-    custom_map_2_checkbox = col3.checkbox("", value=False, key="custom_map_2_checkbox")
-    custom_map_2 = col4.text_input(
-        "", placeholder="Enter custom map", key="custom_map_2"
-    )
+    # Custom map 2 text box with checkbox
+    custom_map_2 = st.text_input("Custom Map 2", key="custom_map_2", max_chars=50)
+    custom_map_2_checkbox = st.checkbox(f"Include {custom_map_2}", value=False, key="custom_map_2_checkbox")
 
-    if custom_map_2_checkbox and custom_map_2:
-        if custom_map_2 not in st.session_state.selected_maps:
-            st.session_state.selected_maps.append(custom_map_2)
-    else:
-        if custom_map_2 in st.session_state.selected_maps:
-            st.session_state.selected_maps.remove(custom_map_2)
+    if custom_map_2_checkbox and custom_map_2 not in st.session_state.selected_maps:
+        st.session_state.selected_maps.append(custom_map_2)
+    elif not custom_map_2_checkbox and custom_map_2 in st.session_state.selected_maps:
+        st.session_state.selected_maps.remove(custom_map_2)
 
-    # Display colonies with checkboxes
     st.subheader("Select Colonies")
-    for colony in default_colonies:
+    # Display colonies in one section
+    for idx, colony in enumerate(default_colonies):
         checkbox = st.checkbox(colony, value=(colony in st.session_state.selected_colonies))
         if checkbox:
             if colony not in st.session_state.selected_colonies:
@@ -264,6 +207,3 @@ elif st.session_state.page == "options":
     if st.button("Back"):
         st.session_state.page = "main"
         st.rerun()
-
-
-
