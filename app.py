@@ -78,7 +78,7 @@ st.markdown(
 # Main Page (where players input their names and set options)
 if st.session_state.page == "main":
     # Display background image directly using st.image
-    st.image("static/mars.jpg", use_column_width=True, clamp=True)
+    st.image("static/mars.jpg", use_container_width=True, clamp=True)
     
     st.image("Terraforming-Mars-logo-with-shadow.png", width=500, use_container_width=True)
     st.markdown("<div style='text-align: center;'><h2 style='color: #FF6F20;'>Game Randomizer</h2></div>", unsafe_allow_html=True)
