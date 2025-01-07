@@ -1,6 +1,7 @@
 import streamlit as st
 import random
 import time
+import os
 
 # Copyright Notice
 # Copyright (c) 2025, John Piccirilli
@@ -51,6 +52,9 @@ def randomize_setup(player_count, maps, colonies):
     selected_map = random.choice(maps)
     return selected_map, selected_colonies
 
+# Resolve the path for the logo image in the static folder
+logo_path = "static/Terraforming-Mars-logo-with-shadow.png"
+
 # Add custom CSS for buttons
 st.markdown(
     """
@@ -94,7 +98,11 @@ if st.session_state.show_results:
     first_player = random.choice(player_list)
 
     # Display results
-    st.image("Terraforming-Mars-logo-with-shadow.png", width=500, use_container_width=True)
+    if os.path.exists(logo_path):
+        st.image(logo_path, width=500, use_container_width=True)
+    else:
+        st.warning("Logo image not found. Please check the 'static' folder.")
+
     st.markdown(f"<div style='text-align: center;'><h3 style='color: #FF6F20;'>Game Setup for {', '.join(player_list)}</h3></div>", unsafe_allow_html=True)
     st.write(f"**Selected Map**: {selected_map}")
     st.write(f"**Selected Colonies ({len(selected_colonies)})**:")
@@ -110,7 +118,11 @@ if st.session_state.show_results:
 
 # Main Page (where players input their names and set options)
 elif st.session_state.page == "main":
-    st.image("Terraforming-Mars-logo-with-shadow.png", width=500, use_container_width=True)
+    if os.path.exists(logo_path):
+        st.image(logo_path, width=500, use_container_width=True)
+    else:
+        st.warning("Logo image not found. Please check the 'static' folder.")
+
     st.markdown("<div style='text-align: center;'><h2 style='color: #FF6F20;'>Game Randomizer</h2></div>", unsafe_allow_html=True)
 
     # Input player names in 5 smaller text boxes
@@ -169,37 +181,6 @@ elif st.session_state.page == "options":
         else:
             if map in st.session_state.selected_maps:
                 st.session_state.selected_maps.remove(map)
-
-    # Add custom maps text boxes with checkboxes
-    
-    col1, col2 = st.columns([1, 5])
-
-    # Custom Map 1
-    custom_map_1_checkbox = col1.checkbox("", value=False, key="custom_map_1_checkbox")
-    custom_map_1 = col2.text_input(
-        "", placeholder="Enter custom map", key="custom_map_1"
-    )
-
-    if custom_map_1_checkbox and custom_map_1:
-        if custom_map_1 not in st.session_state.selected_maps:
-            st.session_state.selected_maps.append(custom_map_1)
-    else:
-        if custom_map_1 in st.session_state.selected_maps:
-            st.session_state.selected_maps.remove(custom_map_1)
-
-    # Custom Map 2
-    col3, col4 = st.columns([1, 5])
-    custom_map_2_checkbox = col3.checkbox("", value=False, key="custom_map_2_checkbox")
-    custom_map_2 = col4.text_input(
-        "", placeholder="Enter custom map", key="custom_map_2"
-    )
-
-    if custom_map_2_checkbox and custom_map_2:
-        if custom_map_2 not in st.session_state.selected_maps:
-            st.session_state.selected_maps.append(custom_map_2)
-    else:
-        if custom_map_2 in st.session_state.selected_maps:
-            st.session_state.selected_maps.remove(custom_map_2)
 
     # Display colonies with checkboxes
     st.subheader("Select Colonies")
