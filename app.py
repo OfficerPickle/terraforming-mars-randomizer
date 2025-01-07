@@ -151,7 +151,6 @@ elif st.session_state.page == "main":
 # Options Page (where maps and colonies can be selected)
 elif st.session_state.page == "options":
     st.subheader("Select Maps")
-    col1, col2 = st.columns(2)
 
     # Initialize custom map state
     if "custom_map_1" not in st.session_state:
@@ -160,70 +159,65 @@ elif st.session_state.page == "options":
         st.session_state.custom_map_2 = ""
 
     # Display default maps with checkboxes
-    for idx, map in enumerate(default_maps):
-        with (col1 if idx % 2 == 0 else col2):
-            # Add special note for Amazonis Planitia
-            if map == "Amazonis Planitia":
-                checkbox = st.checkbox(
-                    f"{map} *",
-                    value=(map in st.session_state.selected_maps),
-                    help="Not recommended for smaller groups",
-                )
-            else:
-                checkbox = st.checkbox(map, value=(map in st.session_state.selected_maps))
+    for map in default_maps:
+        # Add special note for Amazonis Planitia
+        if map == "Amazonis Planitia":
+            checkbox = st.checkbox(
+                f"{map} *",
+                value=(map in st.session_state.selected_maps),
+                help="Not recommended for smaller groups",
+            )
+        else:
+            checkbox = st.checkbox(map, value=(map in st.session_state.selected_maps))
 
-            # Update session state based on checkbox
-            if checkbox:
-                if map not in st.session_state.selected_maps:
-                    st.session_state.selected_maps.append(map)
-            else:
-                if map in st.session_state.selected_maps:
-                    st.session_state.selected_maps.remove(map)
+        # Update session state based on checkbox
+        if checkbox:
+            if map not in st.session_state.selected_maps:
+                st.session_state.selected_maps.append(map)
+        else:
+            if map in st.session_state.selected_maps:
+                st.session_state.selected_maps.remove(map)
 
     # Add custom maps text boxes with checkboxes
-    with col1:
-        custom_map_1 = st.text_input("Custom Map 1", st.session_state.custom_map_1, placeholder="Enter custom map")
-        custom_checkbox_1 = st.checkbox(
-            "",
-            value=(custom_map_1 in st.session_state.selected_maps),
-            key="custom_map_1_checkbox",
-        )
-        if custom_checkbox_1 and custom_map_1:
-            if custom_map_1 not in st.session_state.selected_maps:
-                st.session_state.selected_maps.append(custom_map_1)
-        else:
-            if custom_map_1 in st.session_state.selected_maps:
-                st.session_state.selected_maps.remove(custom_map_1)
-        st.session_state.custom_map_1 = custom_map_1
+    st.text("Add Custom Maps:")
+    custom_map_1 = st.text_input("Custom Map 1", st.session_state.custom_map_1, placeholder="Enter custom map")
+    custom_checkbox_1 = st.checkbox(
+        "Enable Custom Map 1",
+        value=(custom_map_1 in st.session_state.selected_maps),
+        key="custom_map_1_checkbox",
+    )
+    if custom_checkbox_1 and custom_map_1:
+        if custom_map_1 not in st.session_state.selected_maps:
+            st.session_state.selected_maps.append(custom_map_1)
+    else:
+        if custom_map_1 in st.session_state.selected_maps:
+            st.session_state.selected_maps.remove(custom_map_1)
+    st.session_state.custom_map_1 = custom_map_1
 
-    with col2:
-        custom_map_2 = st.text_input("Custom Map 2", st.session_state.custom_map_2, placeholder="Enter custom map")
-        custom_checkbox_2 = st.checkbox(
-            "",
-            value=(custom_map_2 in st.session_state.selected_maps),
-            key="custom_map_2_checkbox",
-        )
-        if custom_checkbox_2 and custom_map_2:
-            if custom_map_2 not in st.session_state.selected_maps:
-                st.session_state.selected_maps.append(custom_map_2)
-        else:
-            if custom_map_2 in st.session_state.selected_maps:
-                st.session_state.selected_maps.remove(custom_map_2)
-        st.session_state.custom_map_2 = custom_map_2
+    custom_map_2 = st.text_input("Custom Map 2", st.session_state.custom_map_2, placeholder="Enter custom map")
+    custom_checkbox_2 = st.checkbox(
+        "Enable Custom Map 2",
+        value=(custom_map_2 in st.session_state.selected_maps),
+        key="custom_map_2_checkbox",
+    )
+    if custom_checkbox_2 and custom_map_2:
+        if custom_map_2 not in st.session_state.selected_maps:
+            st.session_state.selected_maps.append(custom_map_2)
+    else:
+        if custom_map_2 in st.session_state.selected_maps:
+            st.session_state.selected_maps.remove(custom_map_2)
+    st.session_state.custom_map_2 = custom_map_2
 
     st.subheader("Select Colonies")
-    col3, col4 = st.columns(2)
-
-    # Display colonies in two columns
-    for idx, colony in enumerate(default_colonies):
-        with (col3 if idx % 2 == 0 else col4):
-            checkbox = st.checkbox(colony, value=(colony in st.session_state.selected_colonies))
-            if checkbox:
-                if colony not in st.session_state.selected_colonies:
-                    st.session_state.selected_colonies.append(colony)
-            else:
-                if colony in st.session_state.selected_colonies:
-                    st.session_state.selected_colonies.remove(colony)
+    # Display colonies with checkboxes
+    for colony in default_colonies:
+        checkbox = st.checkbox(colony, value=(colony in st.session_state.selected_colonies))
+        if checkbox:
+            if colony not in st.session_state.selected_colonies:
+                st.session_state.selected_colonies.append(colony)
+        else:
+            if colony in st.session_state.selected_colonies:
+                st.session_state.selected_colonies.remove(colony)
 
     # Button to go back to the main page
     if st.button("Back"):
