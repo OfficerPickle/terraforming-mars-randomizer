@@ -51,19 +51,10 @@ def randomize_setup(player_count, maps, colonies):
     selected_map = random.choice(maps)
     return selected_map, selected_colonies
 
-# Add custom CSS for buttons and background image
+# Add custom CSS for buttons
 st.markdown(
     """
     <style>
-    body {
-        background-image: url('/static/mars.jpg');
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        height: 100vh;
-        color: white;
-    }
-
     .custom-button {
         background-color: #FF6F20;
         color: white;
@@ -84,41 +75,11 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# Handle "results page" separately
-if st.session_state.show_results:
-    # Display spinner before showing results
-    with st.spinner("Randomizing game setup..."):
-        time.sleep(2)  # Simulate delay for spinning animation
-
-    # Retrieve player list and results
-    player_list = st.session_state.get("player_list", [])
-    
-    # Add "and" before the last player in the list (if applicable)
-    if len(player_list) > 1:
-        player_list[-1] = "and " + player_list[-1]
-
-    selected_map, selected_colonies = randomize_setup(
-        len(player_list), st.session_state.selected_maps, st.session_state.selected_colonies
-    )
-    first_player = random.choice(player_list)
-
-    # Display results
-    st.image("Terraforming-Mars-logo-with-shadow.png", width=500, use_container_width=True)
-    st.markdown(f"<div style='text-align: center;'><h3 style='color: #FF6F20;'>Game Setup for {', '.join(player_list)}</h3></div>", unsafe_allow_html=True)
-    st.write(f"**Selected Map**: {selected_map}")
-    st.write(f"**Selected Colonies ({len(selected_colonies)})**:")
-    for colony in selected_colonies:
-        st.write(f"- {colony}")
-    st.write(f"\n**First Player**: {first_player}")
-
-    # Button to go back to the main page
-    if st.button("Back to Main Page"):
-        st.session_state.show_results = False
-        st.session_state.player_list = []
-        st.rerun()
-
 # Main Page (where players input their names and set options)
 elif st.session_state.page == "main":
+    # Display background image directly using st.image
+    st.image("static/mars.jpg", use_column_width=True, clamp=True)
+    
     st.image("Terraforming-Mars-logo-with-shadow.png", width=500, use_container_width=True)
     st.markdown("<div style='text-align: center;'><h2 style='color: #FF6F20;'>Game Randomizer</h2></div>", unsafe_allow_html=True)
 
