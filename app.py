@@ -172,14 +172,12 @@ elif st.session_state.page == "options":
 
     # Add custom maps text boxes with checkboxes
     st.text("Add Custom Maps:")
-    col1, col2 = st.columns([3, 1])
+    col1, col2 = st.columns([1, 5])
 
     # Custom Map 1
-    custom_map_1 = col1.text_input(
+    custom_map_1_checkbox = col1.checkbox("", value=False, key="custom_map_1_checkbox")
+    custom_map_1 = col2.text_input(
         "", placeholder="Enter custom map", key="custom_map_1"
-    )
-    custom_map_1_checkbox = col2.checkbox(
-        "", value=(custom_map_1 in st.session_state.selected_maps), key="custom_map_1_checkbox"
     )
 
     if custom_map_1_checkbox and custom_map_1:
@@ -190,12 +188,10 @@ elif st.session_state.page == "options":
             st.session_state.selected_maps.remove(custom_map_1)
 
     # Custom Map 2
-    col3, col4 = st.columns([3, 1])
-    custom_map_2 = col3.text_input(
+    col3, col4 = st.columns([1, 5])
+    custom_map_2_checkbox = col3.checkbox("", value=False, key="custom_map_2_checkbox")
+    custom_map_2 = col4.text_input(
         "", placeholder="Enter custom map", key="custom_map_2"
-    )
-    custom_map_2_checkbox = col4.checkbox(
-        "", value=(custom_map_2 in st.session_state.selected_maps), key="custom_map_2_checkbox"
     )
 
     if custom_map_2_checkbox and custom_map_2:
@@ -220,5 +216,6 @@ elif st.session_state.page == "options":
     if st.button("Back"):
         st.session_state.page = "main"
         st.rerun()
+
 
 
