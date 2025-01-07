@@ -76,7 +76,7 @@ st.markdown(
 )
 
 # Main Page (where players input their names and set options)
-elif st.session_state.page == "main":
+if st.session_state.page == "main":
     # Display background image directly using st.image
     st.image("static/mars.jpg", use_column_width=True, clamp=True)
     
