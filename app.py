@@ -12,7 +12,7 @@ st.markdown(
     <style>
     /* Apply background to the entire page */
     .stApp {{
-        background-image: url("/static/mrs.jpg");
+        background-image: url("/static/mars.jpg");
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
