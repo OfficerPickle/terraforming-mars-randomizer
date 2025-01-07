@@ -52,8 +52,28 @@ def randomize_setup(player_count, maps, colonies):
     selected_map = random.choice(maps)
     return selected_map, selected_colonies
 
-# Resolve the path for the logo image in the static folder
+# Resolve paths for the logo and background images in the static folder
 logo_path = "static/Terraforming-Mars-logo-with-shadow.png"
+background_image_path = "static/mars.jpg"
+
+# Add custom CSS for background image
+if os.path.exists(background_image_path):
+    st.markdown(
+        f"""
+        <style>
+        body {{
+            background-image: url('{background_image_path}');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+        }}
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+else:
+    st.warning("Background image not found. Please check the 'static' folder.")
 
 # Add custom CSS for buttons
 st.markdown(
