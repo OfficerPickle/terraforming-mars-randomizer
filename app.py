@@ -56,7 +56,7 @@ st.markdown(
     <style>
     /* Set Mars image as background */
     body {
-        background-image: url('static/mars.jpg');
+        background-image: url('https://github.com/OfficerPickle/terraforming-mars-randomizer/blob/main/static/mars.jpg');
         background-size: cover;
         background-position: center center;
         background-attachment: fixed;
