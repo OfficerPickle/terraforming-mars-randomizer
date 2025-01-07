@@ -193,7 +193,7 @@ elif st.session_state.page == "options":
             st.session_state.selected_maps.remove(custom_map_1)
     st.session_state.custom_map_1 = custom_map_1
 
-    custom_map_2 = st.text_input(st.session_state.custom_map_2, placeholder="Enter custom map")
+    custom_map_2 = st.text_input("Custom Map 2", st.session_state.custom_map_2, placeholder="Enter custom map")
     custom_checkbox_2 = st.checkbox(
         "Enable Custom Map 2",
         value=(custom_map_2 in st.session_state.selected_maps),
