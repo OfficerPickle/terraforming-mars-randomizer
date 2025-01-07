@@ -109,6 +109,7 @@ if st.session_state.show_results:
     )
     first_player = random.choice(player_list)
 
+    # Display logo image (located in the main folder)
     st.image("terraforming-mars-logo-with-shadow.png", use_container_width=True)
     st.markdown(f"<div style='text-align: center;'><h3 style='color: #FF6F20;'>Game Setup for {', '.join(player_list)}</h3></div>", unsafe_allow_html=True)
     st.write(f"**Selected Map**: {selected_map}")
@@ -124,6 +125,7 @@ if st.session_state.show_results:
 
 # Main Page (where players input their names and set options)
 elif st.session_state.page == "main":
+    # Display logo image (located in the main folder)
     st.image("terraforming-mars-logo-with-shadow.png", use_container_width=True)
     st.markdown("<div style='text-align: center;'><h2 style='color: #FF6F20;'>Game Randomizer</h2></div>", unsafe_allow_html=True)
 
