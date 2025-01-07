@@ -113,7 +113,7 @@ elif st.session_state.page == "main":
     st.image("Terraforming-Mars-logo-with-shadow.png", width=500, use_container_width=True)
     st.markdown("<div style='text-align: center;'><h2 style='color: #FF6F20;'>Game Randomizer</h2></div>", unsafe_allow_html=True)
 
-    # Input player names in 5 smaller text boxes
+    # Input player names in smaller text boxes
     player1 = st.text_input("Player 1", "")
     player2 = st.text_input("Player 2", "", placeholder="Leave blank if not used")
     player3 = st.text_input("Player 3", "", placeholder="Leave blank if not used")
@@ -134,12 +134,23 @@ elif st.session_state.page == "main":
     # Custom left-aligned "Randomize!" button (only triggers when clicked)
     randomize_button = st.button("Randomize!", key="randomize_button", use_container_width=True)
 
-    # Display copyright notice at the bottom of the results page
+    # Display copyright notice at the bottom
     st.markdown(
         "<div style='text-align: center; font-size: small; color: #555;'>"
         "Copyright (c) 2025, John Piccirilli. All rights reserved."
-        "</div>", unsafe_allow_html=True
+        "</div>",
+        unsafe_allow_html=True
     )
+
+    # Display disclaimer at the bottom
+    st.markdown(
+        "<div style='text-align: center; font-size: small; color: #555;'>"
+        "Disclaimer: This project is a fan-made tool intended for personal use and is not affiliated with, endorsed by, or associated with FryxGames or its affiliates. "
+        "All trademarks, copyrights, and intellectual property related to 'Terraforming Mars' are the property of FryxGames. No copyright infringement is intended."
+        "</div>",
+        unsafe_allow_html=True
+    )
+
     # Only run the randomization when the "Randomize!" button is clicked
     if randomize_button:
         if len(player_list) > 0:
@@ -147,6 +158,7 @@ elif st.session_state.page == "main":
             st.rerun()
         else:
             st.write("Please enter player names.")
+
 
 # Options Page (where maps and colonies can be selected)
 elif st.session_state.page == "options":
