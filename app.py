@@ -134,21 +134,16 @@ elif st.session_state.page == "main":
     # Custom left-aligned "Randomize!" button (only triggers when clicked)
     randomize_button = st.button("Randomize!", key="randomize_button", use_container_width=True)
 
-    # Display copyright notice at the bottom
+    # Display copyright notice and disclaimer at the bottom
     st.markdown(
-        "<div style='text-align: center; font-size: small; color: #555;'>"
-        "Copyright (c) 2025, John Piccirilli. All rights reserved."
-        "</div>",
-        unsafe_allow_html=True
-    )
-
-    # Display disclaimer at the bottom
-    st.markdown(
-        "<div style='text-align: center; font-size: small; color: #555;'>"
-        "Disclaimer: This project is a fan-made tool intended for personal use and is not affiliated with, endorsed by, or associated with FryxGames or its affiliates. "
-        "All trademarks, copyrights, and intellectual property related to 'Terraforming Mars' are the property of FryxGames. No copyright infringement is intended."
-        "</div>",
-        unsafe_allow_html=True
+        """
+        <div style='text-align: center; font-size: small; color: #555;'>
+        Copyright (c) 2025, John Piccirilli. All rights reserved.<br>
+        Disclaimer: This project is a fan-made tool intended for personal use and is not affiliated with, endorsed by, or associated with FryxGames or its affiliates.
+        All trademarks, copyrights, and intellectual property related to 'Terraforming Mars' are the property of FryxGames. No copyright infringement is intended.
+        </div>
+        """,
+        unsafe_allow_html=True,
     )
 
     # Only run the randomization when the "Randomize!" button is clicked
@@ -158,6 +153,7 @@ elif st.session_state.page == "main":
             st.rerun()
         else:
             st.write("Please enter player names.")
+
 
 
 # Options Page (where maps and colonies can be selected)
