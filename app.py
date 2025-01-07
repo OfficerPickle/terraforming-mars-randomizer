@@ -124,7 +124,7 @@ if st.session_state.show_results:
 
 # Main Page (where players input their names and set options)
 elif st.session_state.page == "main":
-    st.image("static/terraforming-mars-logo-with-shadow.png", use_container_width=True)
+    st.image("terraforming-mars-logo-with-shadow.png", use_container_width=True)
     st.markdown("<div style='text-align: center;'><h2 style='color: #FF6F20;'>Game Randomizer</h2></div>", unsafe_allow_html=True)
 
     player1 = st.text_input("Player 1", "")
