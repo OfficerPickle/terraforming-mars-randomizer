@@ -170,9 +170,7 @@ elif st.session_state.page == "options":
             if map in st.session_state.selected_maps:
                 st.session_state.selected_maps.remove(map)
 
-    # Add custom maps text boxes with checkboxes
-    st.text("Add Custom Maps:")
-    col1, col2 = st.columns([1, 5])
+    
 
     # Custom Map 1
     custom_map_1_checkbox = col1.checkbox("", value=False, key="custom_map_1_checkbox")
