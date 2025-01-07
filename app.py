@@ -56,7 +56,7 @@ st.markdown(
     """
     <style>
     body {
-        background-image: url('/static/mars1.jpg');
+        background-image: url('/static/mars.jpg');
         background-size: cover;
         background-repeat: no-repeat;
         background-attachment: fixed;
