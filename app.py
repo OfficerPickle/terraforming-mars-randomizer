@@ -6,6 +6,45 @@ import time
 # Copyright (c) 2025, John Piccirilli
 # All rights reserved.
 
+# Add a Mars-themed background image using custom CSS
+st.markdown(
+    """
+    <style>
+    /* Apply background to the entire page */
+    .stApp {
+        background-image: url("mars.jpg");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        color: white;
+    }
+    
+    /* Customize text for better readability */
+    h1, h2, h3, h4, h5, h6, p, label {
+        color: white;
+        text-shadow: 1px 1px 2px black;
+    }
+    
+    /* Style buttons */
+    .stButton>button {
+        background-color: #FF6F20;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        padding: 10px 20px;
+        box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+        transition: 0.3s ease-in-out;
+    }
+    .stButton>button:hover {
+        background-color: #E65C1C;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+
 # Default list of available maps and colonies
 default_maps = [
     "Tharsis",
